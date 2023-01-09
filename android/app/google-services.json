@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "962326024657",
+    "project_id": "einsenhover-planner",
+    "storage_bucket": "einsenhover-planner.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:962326024657:android:7be200368cce738057d0f0",
+        "android_client_info": {
+          "package_name": "com.example.eisenhover_planner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "962326024657-4vh32v8f77v3iaa73rcvme8gfkvi9msp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC64b--mED8x6LuiOPnft-oXVXpACJInAA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "962326024657-4vh32v8f77v3iaa73rcvme8gfkvi9msp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
