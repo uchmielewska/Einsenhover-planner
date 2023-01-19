@@ -36,6 +36,10 @@ dependencies:
   #Firestore Database
   cloud_firestore: ^4.3.1
 
+  intl:
+  google_fonts:
+  date_picker_timeline:
+
   get_storage:
   get:
 dev_dependencies:

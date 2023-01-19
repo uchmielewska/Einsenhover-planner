@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
+
+const Color primaryClr = Color(0xFF4e5ae8);
 
 class Themes {
   static final light = ThemeData(
@@ -10,4 +14,20 @@ class Themes {
     primarySwatch: Colors.blue,
     brightness: Brightness.dark,
   );
+}
+
+TextStyle get subHeadingStyle {
+  return GoogleFonts.lato(
+      textStyle: (TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: Get.isDarkMode ? Colors.grey[400] : Colors.grey)));
+}
+
+TextStyle get headingStyle {
+  return GoogleFonts.lato(
+      textStyle: (TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: Get.isDarkMode ? Colors.white : Colors.black)));
 }
