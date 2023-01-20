@@ -71,13 +71,14 @@ class _HomePageState extends State<HomePage> {
                 Text(DateFormat.yMMMMd().format(DateTime.now()),
                     style: subHeadingStyle),
                 Text(
-                  "Today",
+                  "Dziś",
                   style: headingStyle,
                 )
               ],
             ),
             MyButton(
-                label: "+ Add task", onTap: () => Get.to(const AddTaskPage()))
+                label: "+ Dodaj zadanie",
+                onTap: () => Get.to(const AddTaskPage()))
           ],
         ));
   }

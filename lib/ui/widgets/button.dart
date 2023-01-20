@@ -12,7 +12,7 @@ class MyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTap,
+      onTap: () => onTap(),
       child: Container(
         width: 120,
         height: 50,
