@@ -12,6 +12,9 @@ class AddTaskPage extends StatefulWidget {
 }
 
 class _AddTaskPageState extends State<AddTaskPage> {
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+
   String _selectedImportance = "ważne";
   final List<String> _importanceList = ["ważne", "nieważne"];
 
@@ -29,18 +32,39 @@ class _AddTaskPageState extends State<AddTaskPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text("Dodaj zadanie", style: headingStyle),
-              const MyInputField(
-                  inputTitle: "Tytuł", placeholder: "Dodaj tytuł zadania"),
-              const MyInputField(
-                  inputTitle: "Opis", placeholder: "Dodaj opis zadania"),
+              MyInputField(
+                  inputTitle: "Tytuł",
+                  placeholder: "Dodaj tytuł zadania",
+                  controller: _titleController),
+              MyInputField(
+                  inputTitle: "Opis",
+                  placeholder: "Dodaj opis zadania",
+                  controller: _descriptionController),
               _importanceSelect(context),
               _prioritySelect(context),
               Container(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: MyButton(label: "Utwórz zadanie", onTap: () => null))
+                  padding: const EdgeInsets.only(top: 40),
+                  child: MyButton(
+                      label: "Utwórz zadanie",
+                      onTap: () => _validateDate(),
+                      isLong: true))
             ],
           ))),
     );
+  }
+
+  _validateDate() {
+    if (_titleController.text.isNotEmpty &&
+        _descriptionController.text.isNotEmpty) {
+      // add to database
+      Get.back();
+    } else if (_titleController.text.isEmpty) {
+      Get.snackbar("Required", "All fields are required!",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.pink,
+          colorText: Colors.white,
+          icon: const Icon(Icons.warning_amber_rounded, color: Colors.white));
+    }
   }
 
   _importanceSelect(BuildContext context) {

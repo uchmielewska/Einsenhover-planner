@@ -26,10 +26,10 @@ TextStyle get subHeadingStyle {
 
 TextStyle get headingStyle {
   return GoogleFonts.lato(
-      textStyle: (TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-          color: Get.isDarkMode ? Colors.white : Colors.black)));
+      textStyle: (const TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+  )));
 }
 
 TextStyle get inputTitleStyle {

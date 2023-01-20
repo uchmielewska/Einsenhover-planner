@@ -46,12 +46,18 @@ class MyInputField extends StatelessWidget {
                             decoration: InputDecoration(
                               hintText: placeholder,
                               hintStyle: placeholderStyle,
-                              focusedBorder: const UnderlineInputBorder(
+                              focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                      width: 0, color: Colors.white)),
-                              enabledBorder: const UnderlineInputBorder(
+                                      width: 0,
+                                      color: Get.isDarkMode
+                                          ? Colors.black
+                                          : Colors.white)),
+                              enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                      width: 0, color: Colors.white)),
+                                      width: 0,
+                                      color: Get.isDarkMode
+                                          ? Colors.black
+                                          : Colors.white)),
                             ))),
                     widget == null ? Container() : Container(child: widget)
                   ],

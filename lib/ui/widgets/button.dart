@@ -5,8 +5,13 @@ import '../theme.dart';
 class MyButton extends StatelessWidget {
   final String label;
   final Function onTap;
+  final bool isLong;
 
-  const MyButton({Key? key, required this.label, required this.onTap})
+  const MyButton(
+      {Key? key,
+      required this.label,
+      required this.onTap,
+      required this.isLong})
       : super(key: key);
 
   @override
@@ -14,7 +19,7 @@ class MyButton extends StatelessWidget {
     return GestureDetector(
       onTap: () => onTap(),
       child: Container(
-        width: 120,
+        width: isLong ? 350 : 120,
         height: 50,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20), color: primaryClr),

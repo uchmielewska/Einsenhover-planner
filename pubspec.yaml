@@ -39,7 +39,8 @@ dependencies:
   intl:
   google_fonts:
   date_picker_timeline:
-
+  flutter_speed_dial:
+  
   get_storage:
   get:
 dev_dependencies:
