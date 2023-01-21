@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 
-const Color primaryClr = Color(0xFF4e5ae8);
+const Color primaryClr = Colors.deepPurple;
 
 class Themes {
   static final light = ThemeData(
-    primarySwatch: Colors.blue,
+    primarySwatch: Colors.deepPurple,
     brightness: Brightness.light,
   );
 
   static final dark = ThemeData(
-    primarySwatch: Colors.blue,
+    primarySwatch: Colors.deepPurple,
     brightness: Brightness.dark,
   );
 }

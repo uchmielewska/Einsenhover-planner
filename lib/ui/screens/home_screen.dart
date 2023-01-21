@@ -2,12 +2,15 @@ import 'package:eisenhover_planner/ui/screens/add_task_screen.dart';
 import 'package:eisenhover_planner/ui/screens/plan_day_screen.dart';
 import 'package:eisenhover_planner/ui/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 
+import '../../business_logic/cubit/task/task_cubit.dart';
 import '../../services/theme_services.dart';
 import '../widgets/button.dart';
+import '../widgets/taskTileWidget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -23,7 +26,25 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: _appBar(),
-        body: Column(children: [_addTaskBar()]),
+        // body: Column(children: [_addTaskBar()]),
+        body: BlocBuilder<TaskCubit, TaskState>(
+          builder: (blocContext, state) {
+            if (state is! TaskLoaded) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            return ListView(
+              children: ListTile.divideTiles(
+                  context: context,
+                  tiles: state.tasks.map((category) {
+                    return TaskTileWidget(
+                      id: category.id,
+                      title: category.title,
+                    );
+                  })).toList(),
+            );
+          },
+        ),
         floatingActionButton: _floatingMenuButton());
   }
 
@@ -65,6 +86,7 @@ class _HomePageState extends State<HomePage> {
   _appBar() {
     return AppBar(
         elevation: 0,
+        // backgroundColor: Colors.white,
         leading: GestureDetector(
           onTap: () {
             ThemeService().switchTheme();
