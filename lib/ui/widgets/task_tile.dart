@@ -16,10 +16,11 @@ class MyTaskTile extends StatelessWidget {
       onPressed: () {},
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+        color: Colors.red,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(title),
+          children: const [
+            Text("SIEMA"), // Text(title),
           ],
         ),
       ),

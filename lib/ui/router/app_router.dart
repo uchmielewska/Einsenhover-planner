@@ -25,12 +25,6 @@ class AppRouter {
 
   Route onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
-      case planDayRoute:
-        return MaterialPageRoute(
-            builder: (_) => BlocProvider.value(
-                  value: _taskCubit,
-                  child: const PlanDayScreen(),
-                ));
       case addTaskRoute:
         return MaterialPageRoute(
             builder: (_) => BlocProvider(
@@ -38,6 +32,20 @@ class AppRouter {
                       AddTaskCubit(_taskRepository, _taskCubit),
                   child: const AddTaskScreen(),
                 ));
+      case planDayRoute:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider.value(
+            value: _taskCubit,
+            child: BlocProvider.value(
+              value: _taskCubit,
+              child: BlocProvider(
+                create: (BuildContext context) =>
+                    AddTaskCubit(_taskRepository, _taskCubit),
+                child: const PlanDayScreen(),
+              ),
+            ),
+          ),
+        );
       default:
         return MaterialPageRoute(
             builder: (_) => BlocProvider.value(

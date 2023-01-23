@@ -20,15 +20,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  DateTime _selectedDate = DateTime.now();
-
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<TaskCubit>(context).fetchTasks();
 
     return Scaffold(
         appBar: _appBar(),
-        body: Column(children: [
+        body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           _addTaskBar(),
           BlocBuilder<TaskCubit, TaskState>(
             builder: (blocContext, state) {
@@ -36,13 +34,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 return const Center(child: CircularProgressIndicator());
               }
 
+              // return Text(state.tasks[0].title); // Text(title),
+
               return ListView(
                 children: ListTile.divideTiles(
                     context: context,
-                    tiles: state.tasks.map((category) {
+                    tiles: state.tasks.map((task) {
                       return MyTaskTile(
-                        id: category.id,
-                        title: category.title,
+                        id: task.id,
+                        title: task.title,
                       );
                     })).toList(),
               );
