@@ -34,8 +34,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 return const Center(child: CircularProgressIndicator());
               }
 
-              // return Text(state.tasks[0].title); // Text(title),
-
               return ListView(
                 children: ListTile.divideTiles(
                     context: context,
