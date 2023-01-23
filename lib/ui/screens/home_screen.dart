@@ -26,28 +26,37 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
         appBar: _appBar(),
-        body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          _addTaskBar(),
-          BlocBuilder<TaskCubit, TaskState>(
-            builder: (blocContext, state) {
-              if (state is! TaskLoaded) {
-                return const Center(child: CircularProgressIndicator());
-              }
+        body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              _addTaskBar(),
+              Expanded(
+                child: BlocBuilder<TaskCubit, TaskState>(
+                  builder: (blocContext, state) {
+                    if (state is! TaskLoaded) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    // return _addTaskBar();
 
-              return Text(state.tasks[0].title);
-              // return ListView(
-              //   children: ListTile.divideTiles(
-              //       context: context,
-              //       tiles: state.tasks.map((task) {
-              //         return MyTaskTile(
-              //           id: task.id,
-              //           title: task.title,
-              //         );
-              //       })).toList(),
-              // );
-            },
-          ),
-        ]),
+                    return ListView(
+                      children: ListTile.divideTiles(
+                          context: context,
+                          tiles: state.tasks.map((task) {
+                            return MyTaskTile(
+                              id: task.id,
+                              title: task.title,
+                              description: task.description,
+                              isFinished: task.isFinished,
+                              isImportant: task.isImportant,
+                              isPrior: task.isPrior,
+                              isChosen: task.isChosen,
+                            );
+                          })).toList(),
+                    );
+                  },
+                ),
+              )
+            ]),
         floatingActionButton: _floatingMenuButton());
   }
 
