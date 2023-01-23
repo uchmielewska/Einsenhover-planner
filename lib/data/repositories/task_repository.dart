@@ -21,7 +21,7 @@ class TaskRepository {
             isFinished: value['isFinished'],
             isImportant: value['isImportant'],
             isPrior: value['isPrior'],
-            chosenDates: value['chosenDates']);
+            isChosen: value['isChosen']);
       }));
 
       return tasks;
@@ -43,7 +43,7 @@ class TaskRepository {
           isImportant: isImportant,
           isPrior: isPrior,
           isFinished: false,
-          chosenDates: []);
+          isChosen: false);
 
       tasks.add(newTask);
 

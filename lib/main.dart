@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'services/theme_services.dart';
+import 'ui/router/app_router.dart';
 import 'ui/theme.dart';
 
 void main() async {
@@ -12,11 +13,13 @@ void main() async {
   await Firebase.initializeApp();
   await GetStorage.init();
 
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  final AppRouter _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +29,6 @@ class MyApp extends StatelessWidget {
         theme: Themes.light,
         darkTheme: Themes.dark,
         themeMode: ThemeService().theme,
-        home: const HomePage());
+        onGenerateRoute: _appRouter.onGenerateRoute);
   }
 }

@@ -7,7 +7,7 @@ class Task {
   bool isFinished;
   bool isImportant;
   bool isPrior;
-  List<String> chosenDates;
+  bool isChosen;
 
   Task(
       {required this.id,
@@ -16,7 +16,7 @@ class Task {
       required this.isFinished,
       required this.isImportant,
       required this.isPrior,
-      required this.chosenDates});
+      required this.isChosen});
 
   Map toJson() => {
         'id': id,
@@ -25,6 +25,6 @@ class Task {
         'isFinished': isFinished,
         'isImportant': isImportant,
         'isPrior': isPrior,
-        'chosenDates': chosenDates
+        'isChosen': isChosen
       };
 }

@@ -10,41 +10,45 @@ import 'package:get/get.dart';
 import '../../business_logic/cubit/task/task_cubit.dart';
 import '../../services/theme_services.dart';
 import '../widgets/button.dart';
-import '../widgets/taskTileWidget.dart';
+import '../widgets/task_tile.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeScreenState extends State<HomeScreen> {
   DateTime _selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<TaskCubit>(context).fetchTasks();
+
     return Scaffold(
         appBar: _appBar(),
-        // body: Column(children: [_addTaskBar()]),
-        body: BlocBuilder<TaskCubit, TaskState>(
-          builder: (blocContext, state) {
-            if (state is! TaskLoaded) {
-              return const Center(child: CircularProgressIndicator());
-            }
+        body: Column(children: [
+          _addTaskBar(),
+          BlocBuilder<TaskCubit, TaskState>(
+            builder: (blocContext, state) {
+              if (state is! TaskLoaded) {
+                return const Center(child: CircularProgressIndicator());
+              }
 
-            return ListView(
-              children: ListTile.divideTiles(
-                  context: context,
-                  tiles: state.tasks.map((category) {
-                    return TaskTileWidget(
-                      id: category.id,
-                      title: category.title,
-                    );
-                  })).toList(),
-            );
-          },
-        ),
+              return ListView(
+                children: ListTile.divideTiles(
+                    context: context,
+                    tiles: state.tasks.map((category) {
+                      return MyTaskTile(
+                        id: category.id,
+                        title: category.title,
+                      );
+                    })).toList(),
+              );
+            },
+          ),
+        ]),
         floatingActionButton: _floatingMenuButton());
   }
 
@@ -59,11 +63,11 @@ class _HomePageState extends State<HomePage> {
           SpeedDialChild(
               child: const Icon(Icons.add),
               label: 'Dodaj zadanie',
-              onTap: () => Get.to(const AddTaskPage())),
+              onTap: () => Get.to(const AddTaskScreen())),
           SpeedDialChild(
               child: const Icon(Icons.list_alt),
               label: 'Planuj dzień',
-              onTap: () => Get.to(const MyPlanDayPage()))
+              onTap: () => Get.to(const PlanDayScreen()))
         ]);
   }
 

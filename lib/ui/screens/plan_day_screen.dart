@@ -3,14 +3,14 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
-class MyPlanDayPage extends StatefulWidget {
-  const MyPlanDayPage({super.key});
+class PlanDayScreen extends StatefulWidget {
+  const PlanDayScreen({super.key});
 
   @override
-  State<MyPlanDayPage> createState() => _MyPlanDayPage();
+  State<PlanDayScreen> createState() => _PlanDayState();
 }
 
-class _MyPlanDayPage extends State<MyPlanDayPage> {
+class _PlanDayState extends State<PlanDayScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
