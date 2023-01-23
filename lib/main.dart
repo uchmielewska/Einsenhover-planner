@@ -1,4 +1,3 @@
-import 'package:eisenhover_planner/ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
@@ -8,7 +7,7 @@ import 'services/theme_services.dart';
 import 'ui/router/app_router.dart';
 import 'ui/theme.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await GetStorage.init();

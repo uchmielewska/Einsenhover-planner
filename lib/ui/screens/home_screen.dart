@@ -34,16 +34,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 return const Center(child: CircularProgressIndicator());
               }
 
-              return ListView(
-                children: ListTile.divideTiles(
-                    context: context,
-                    tiles: state.tasks.map((task) {
-                      return MyTaskTile(
-                        id: task.id,
-                        title: task.title,
-                      );
-                    })).toList(),
-              );
+              return Text(state.tasks[0].title);
+              // return ListView(
+              //   children: ListTile.divideTiles(
+              //       context: context,
+              //       tiles: state.tasks.map((task) {
+              //         return MyTaskTile(
+              //           id: task.id,
+              //           title: task.title,
+              //         );
+              //       })).toList(),
+              // );
             },
           ),
         ]),
