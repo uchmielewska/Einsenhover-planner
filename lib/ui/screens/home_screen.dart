@@ -1,14 +1,12 @@
-import 'package:eisenhover_planner/ui/screens/add_task_screen.dart';
-import 'package:eisenhover_planner/ui/screens/plan_day_screen.dart';
 import 'package:eisenhover_planner/ui/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 
 import '../../business_logic/cubit/task/task_cubit.dart';
 import '../../services/theme_services.dart';
+import '../widgets/bottom_nagivation.dart';
 import '../widgets/task_tile.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -24,63 +22,47 @@ class _HomeScreenState extends State<HomeScreen> {
     BlocProvider.of<TaskCubit>(context).fetchTasks();
 
     return Scaffold(
-        appBar: _appBar(),
-        body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              _addTaskBar(),
-              Expanded(
-                child: BlocBuilder<TaskCubit, TaskState>(
-                  builder: (blocContext, state) {
-                    if (state is! TaskLoaded) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
+      appBar: _appBar(),
+      bottomNavigationBar: const BottomNavigationWidget(),
+      body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _addTaskBar(),
+            Expanded(
+              child: BlocBuilder<TaskCubit, TaskState>(
+                builder: (blocContext, state) {
+                  if (state is! TaskLoaded) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
 
-                    if (state.tasks.isEmpty) {
-                      return Center(
-                          child: Text("Brak wybranych zadań na dziś",
-                              style: infoHeadingStyle));
-                    }
+                  if (state.tasks.isEmpty) {
+                    return Center(
+                        child: Text("Brak wybranych zadań na dziś",
+                            style: infoHeadingStyle));
+                  }
 
-                    return ListView(
-                      children: ListTile.divideTiles(
-                          context: context,
-                          tiles: state.tasks.map((task) {
-                            return MyTaskTile(
-                              id: task.id,
-                              title: task.title,
-                              description: task.description,
-                              isFinished: task.isFinished,
-                              isImportant: task.isImportant,
-                              isPrior: task.isPrior,
-                              isChosen: task.isChosen,
-                            );
-                          })).toList(),
-                    );
-                  },
-                ),
-              )
-            ]),
-        floatingActionButton: _floatingMenuButton());
-  }
-
-  _floatingMenuButton() {
-    return SpeedDial(
-        animatedIcon: AnimatedIcons.menu_close,
-        spacing: 12,
-        spaceBetweenChildren: 12,
-        backgroundColor: primaryClr,
-        foregroundColor: Colors.white,
-        children: [
-          SpeedDialChild(
-              child: const Icon(Icons.add),
-              label: 'Dodaj zadanie',
-              onTap: () => Get.to(const AddTaskScreen())),
-          SpeedDialChild(
-              child: const Icon(Icons.list_alt),
-              label: 'Planuj dzień',
-              onTap: () => Get.to(const PlanDayScreen()))
-        ]);
+                  return ListView(
+                    children: ListTile.divideTiles(
+                        context: context,
+                        tiles: state.tasks.map((task) {
+                          return task.isChosen
+                              ? MyTaskTile(
+                                  id: task.id,
+                                  title: task.title,
+                                  description: task.description,
+                                  isFinished: task.isFinished,
+                                  isImportant: task.isImportant,
+                                  isPrior: task.isPrior,
+                                  isChosen: task.isChosen,
+                                )
+                              : const SizedBox.shrink();
+                        })).toList(),
+                  );
+                },
+              ),
+            )
+          ]),
+    );
   }
 
   _addTaskBar() {
@@ -93,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
               style: subHeadingStyle),
           Text("Dziś",
               style: headingStyle,
-              selectionColor: Get.isDarkMode ? Colors.white : Colors.black)
+              selectionColor: Get.isDarkMode ? Colors.white : Colors.black),
         ],
       ),
     );
