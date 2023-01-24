@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 import '../../business_logic/cubit/add_task/add_task_cubit.dart';
+import '../../services/theme_services.dart';
+import '../widgets/bottom_nagivation.dart';
 
 class AddTaskScreen extends StatefulWidget {
   const AddTaskScreen({super.key});
@@ -29,7 +31,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _appBar(context),
+      appBar: _appBar(),
+      bottomNavigationBar: const BottomNavigationWidget(),
       body: Container(
           padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
           child: SingleChildScrollView(
@@ -120,14 +123,14 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         ));
   }
 
-  _appBar(BuildContext context) {
+  _appBar() {
     return AppBar(
       elevation: 0,
       leading: GestureDetector(
         onTap: () {
-          Get.back();
+          ThemeService().switchTheme();
         },
-        child: const Icon(Icons.arrow_back_ios, size: 20),
+        child: const Icon(Icons.nightlight_round, size: 20),
       ),
     );
   }

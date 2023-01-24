@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: ListTile.divideTiles(
                         context: context,
                         tiles: state.tasks.map((task) {
-                          return task.isChosen
+                          return (task.isChosen && !task.isFinished)
                               ? MyTaskTile(
                                   id: task.id,
                                   title: task.title,
@@ -84,7 +84,6 @@ class _HomeScreenState extends State<HomeScreen> {
   _appBar() {
     return AppBar(
       elevation: 0,
-      // backgroundColor: Colors.white,
       leading: GestureDetector(
         onTap: () {
           ThemeService().switchTheme();

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 import '../../business_logic/cubit/task/task_cubit.dart';
+import '../../services/theme_services.dart';
 import '../theme.dart';
-import '../widgets/task_tile.dart';
+import '../widgets/bottom_nagivation.dart';
+import '../widgets/task_tile_planning.dart';
 
 class PlanDayScreen extends StatefulWidget {
   const PlanDayScreen({super.key});
@@ -21,7 +21,8 @@ class _PlanDayState extends State<PlanDayScreen> {
     BlocProvider.of<TaskCubit>(context).fetchTasks();
 
     return Scaffold(
-      appBar: _appBar(context),
+      appBar: _appBar(),
+      bottomNavigationBar: const BottomNavigationWidget(),
       body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -43,8 +44,8 @@ class _PlanDayState extends State<PlanDayScreen> {
                     children: ListTile.divideTiles(
                         context: context,
                         tiles: state.tasks.map((task) {
-                          return task.isChosen
-                              ? MyTaskTile(
+                          return !task.isFinished
+                              ? TaskTilePlanning(
                                   id: task.id,
                                   title: task.title,
                                   description: task.description,
@@ -77,14 +78,14 @@ class _PlanDayState extends State<PlanDayScreen> {
     );
   }
 
-  _appBar(BuildContext context) {
+  _appBar() {
     return AppBar(
       elevation: 0,
       leading: GestureDetector(
         onTap: () {
-          Get.back();
+          ThemeService().switchTheme();
         },
-        child: const Icon(Icons.arrow_back_ios, size: 20),
+        child: const Icon(Icons.nightlight_round, size: 20),
       ),
     );
   }
