@@ -70,7 +70,7 @@ class _PlanDayState extends State<PlanDayScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Twoje zadania",
+          Text("Planuj dzień",
               style: headingStyle,
               selectionColor: Get.isDarkMode ? Colors.white : Colors.black),
         ],

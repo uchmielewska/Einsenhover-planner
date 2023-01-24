@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 import '../../business_logic/cubit/add_task/add_task_cubit.dart';
 import '../../services/theme_services.dart';
+import '../widgets/add_task_form.dart';
 import '../widgets/bottom_nagivation.dart';
 
 class AddTaskScreen extends StatefulWidget {
@@ -31,34 +32,72 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _appBar(),
-      bottomNavigationBar: const BottomNavigationWidget(),
-      body: Container(
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-          child: SingleChildScrollView(
-              child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("Dodaj zadanie", style: headingStyle),
-              MyInputField(
-                  inputTitle: "Tytuł",
-                  placeholder: "Dodaj tytuł zadania",
-                  controller: _titleController),
-              MyInputField(
-                  inputTitle: "Opis",
-                  placeholder: "Dodaj opis zadania",
-                  controller: _descriptionController),
-              _importanceSelect(context),
-              _prioritySelect(context),
-              Container(
-                  padding: const EdgeInsets.only(top: 40),
-                  child: MyButton(
-                      label: "Utwórz zadanie",
-                      onTap: () => _validateData(),
-                      isLong: true))
-            ],
-          ))),
-    );
+        appBar: _appBar(),
+        bottomNavigationBar: const BottomNavigationWidget(),
+        body: BlocListener<AddTaskCubit, AddTaskState>(
+          listener: (ctx, state) {
+            if (state is TaskAdded) {
+              Navigator.pop(context);
+            }
+          },
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            child: const AddTaskForm(),
+          ),
+        ));
+
+    // body: Container(
+    //     padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
+    //     child: SingleChildScrollView(
+    //         child: Column(
+    //       crossAxisAlignment: CrossAxisAlignment.start,
+    //       children: [
+    //         Text("Dodaj zadanie", style: headingStyle),
+    //         MyInputField(
+    //             inputTitle: "Tytuł",
+    //             placeholder: "Dodaj tytuł zadania",
+    //             controller: _titleController),
+    //         MyInputField(
+    //             inputTitle: "Opis",
+    //             placeholder: "Dodaj opis zadania",
+    //             controller: _descriptionController),
+    //         _importanceSelect(context),
+    //         _prioritySelect(context),
+    //         Container(
+    //             padding: const EdgeInsets.only(top: 40),
+    //             child: MyButton(
+    //                 label: "Utwórz zadanie",
+    //                 onTap: () => _validateData(),
+    //                 isLong: true))
+    //       ],
+    //     ))),
+    // );
+  }
+
+  _addTaskForm() {
+    return SingleChildScrollView(
+        child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Dodaj zadanie", style: headingStyle),
+        MyInputField(
+            inputTitle: "Tytuł",
+            placeholder: "Dodaj tytuł zadania",
+            controller: _titleController),
+        MyInputField(
+            inputTitle: "Opis",
+            placeholder: "Dodaj opis zadania",
+            controller: _descriptionController),
+        _importanceSelect(context),
+        _prioritySelect(context),
+        Container(
+            padding: const EdgeInsets.only(top: 40),
+            child: MyButton(
+                label: "Utwórz zadanie",
+                onTap: () => _validateData(),
+                isLong: true))
+      ],
+    ));
   }
 
   _validateData() {

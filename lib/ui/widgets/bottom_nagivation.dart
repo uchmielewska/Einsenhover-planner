@@ -44,7 +44,7 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
-          label: 'Twój dzień',
+          label: 'Dziś',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.add),
@@ -52,7 +52,7 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.list_alt),
-          label: 'Planuj',
+          label: 'Planuj dzień',
         ),
       ],
       currentIndex: _currentIndex(context),
