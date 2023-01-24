@@ -9,7 +9,6 @@ import 'package:get/get.dart';
 
 import '../../business_logic/cubit/task/task_cubit.dart';
 import '../../services/theme_services.dart';
-import '../widgets/button.dart';
 import '../widgets/task_tile.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -36,7 +35,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (state is! TaskLoaded) {
                       return const Center(child: CircularProgressIndicator());
                     }
-                    // return _addTaskBar();
+
+                    if (state.tasks.isEmpty) {
+                      return Center(
+                          child: Text("Brak wybranych zadań na dziś",
+                              style: infoHeadingStyle));
+                    }
 
                     return ListView(
                       children: ListTile.divideTiles(
@@ -97,17 +101,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   _appBar() {
     return AppBar(
-        elevation: 0,
-        // backgroundColor: Colors.white,
-        leading: GestureDetector(
-          onTap: () {
-            ThemeService().switchTheme();
-          },
-          child: const Icon(Icons.nightlight_round, size: 20),
-        ),
-        actions: const [
-          Icon(Icons.person, size: 20),
-          SizedBox(width: 20),
-        ]);
+      elevation: 0,
+      // backgroundColor: Colors.white,
+      leading: GestureDetector(
+        onTap: () {
+          ThemeService().switchTheme();
+        },
+        child: const Icon(Icons.nightlight_round, size: 20),
+      ),
+    );
   }
 }

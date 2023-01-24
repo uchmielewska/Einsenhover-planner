@@ -30,9 +30,9 @@ class MyTaskTile extends StatelessWidget {
             color: isImportant
                 ? isPrior
                     ? Colors.red[400]
-                    : Colors.orange[400]
+                    : Colors.orange[600]
                 : isPrior
-                    ? Colors.yellow[400]
+                    ? Colors.yellow[600]
                     : Colors.green[400],
             borderRadius: BorderRadius.circular(20)),
         child: Row(

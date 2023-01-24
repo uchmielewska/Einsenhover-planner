@@ -16,6 +16,14 @@ class Themes {
   );
 }
 
+TextStyle get infoHeadingStyle {
+  return GoogleFonts.lato(
+      textStyle: (TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: Get.isDarkMode ? Colors.grey[400] : Colors.grey)));
+}
+
 TextStyle get subHeadingStyle {
   return GoogleFonts.lato(
       textStyle: (TextStyle(
