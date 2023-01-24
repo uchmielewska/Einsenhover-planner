@@ -35,7 +35,16 @@ class _PlanDayState extends State<PlanDayScreen> {
                     return const Center(child: CircularProgressIndicator());
                   }
                   List<Task> sortedTasks = state.tasks;
-                  // _sortedTasks.sort();
+                  sortedTasks.sort((Task task1, Task task2) {
+                    if (task2.isImportant && task2.isPrior) {
+                      return 2;
+                    } else if (task2.isImportant && !task2.isPrior) {
+                      return 1;
+                    } else if (!task2.isImportant && task2.isPrior) {
+                      return 0;
+                    }
+                    return -1;
+                  });
 
                   if (sortedTasks.isEmpty) {
                     return Center(
