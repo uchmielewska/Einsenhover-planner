@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 import '../../business_logic/cubit/task/task_cubit.dart';
+import '../../data/models/task.dart';
 import '../../services/theme_services.dart';
 import '../theme.dart';
 import '../widgets/bottom_nagivation.dart';
@@ -33,8 +34,10 @@ class _PlanDayState extends State<PlanDayScreen> {
                   if (state is! TaskLoaded) {
                     return const Center(child: CircularProgressIndicator());
                   }
+                  List<Task> sortedTasks = state.tasks;
+                  // _sortedTasks.sort();
 
-                  if (state.tasks.isEmpty) {
+                  if (sortedTasks.isEmpty) {
                     return Center(
                         child: Text("Brak wybranych zadań na dziś",
                             style: infoHeadingStyle));
@@ -43,7 +46,7 @@ class _PlanDayState extends State<PlanDayScreen> {
                   return ListView(
                     children: ListTile.divideTiles(
                         context: context,
-                        tiles: state.tasks.map((task) {
+                        tiles: sortedTasks.map((task) {
                           return !task.isFinished
                               ? TaskTilePlanning(
                                   id: task.id,
@@ -63,6 +66,15 @@ class _PlanDayState extends State<PlanDayScreen> {
           ]),
     );
   }
+
+  // _sortTasks(Task task1, Task task2) {
+  //   var comparisonResult = task1.surname.compareTo(task2.surname);
+  //   if (comparisonResult != 0) {
+  //     return comparisonResult;
+  //   }
+  //   // Surnames are the same, so subsort by given name.
+  //   return name1.givenName.compareTo(name2.givenName);
+  // }
 
   _planDayBar() {
     return Container(

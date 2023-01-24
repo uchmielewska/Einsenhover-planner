@@ -56,6 +56,42 @@ class TaskRepository {
     }
   }
 
+  Future<Task> toggleIsTaskChosen(String id, bool chosen) async {
+    try {
+      List<Task> tasks = await fetchTasks();
+
+      int index = tasks.indexWhere((task) => task.id == id);
+
+      tasks[index].isChosen = chosen;
+
+      final rawTasks = _prepareTasksForApi(tasks);
+
+      await api.saveTasks(rawTasks);
+
+      return tasks[index];
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<Task> toggleIsTaskFinished(String id, bool finished) async {
+    try {
+      List<Task> tasks = await fetchTasks();
+
+      int index = tasks.indexWhere((task) => task.id == id);
+
+      tasks[index].isFinished = finished;
+
+      final rawTasks = _prepareTasksForApi(tasks);
+
+      await api.saveTasks(rawTasks);
+
+      return tasks[index];
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Map<String, Object?> _prepareTasksForApi(List<Task> tasks) {
     return Map<String, Object?>.from(
         {"data": tasks.map((t) => t.toJson()).toList()});

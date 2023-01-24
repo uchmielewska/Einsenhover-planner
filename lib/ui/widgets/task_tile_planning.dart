@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../business_logic/cubit/task/task_cubit.dart';
 
 class TaskTilePlanning extends StatelessWidget {
   final String id;
@@ -23,7 +26,9 @@ class TaskTilePlanning extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () {},
+      onPressed: () {
+        BlocProvider.of<TaskCubit>(context).toggleIsTaskChosen(id, !isChosen);
+      },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
         decoration: BoxDecoration(
