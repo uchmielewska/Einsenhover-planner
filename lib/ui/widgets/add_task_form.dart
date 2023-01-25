@@ -96,7 +96,8 @@ class AddTaskFormState extends State<AddTaskForm> {
                 _selectedPrority == "pilne",
                 _selectedImportance == "ważne")
           }
-        else if (_titleController.text.isEmpty)
+        else if (_titleController.text.isEmpty ||
+            _descriptionController.text.isEmpty)
           {
             Get.snackbar("Required", "All fields are required!",
                 snackPosition: SnackPosition.BOTTOM,

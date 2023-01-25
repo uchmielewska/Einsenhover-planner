@@ -18,7 +18,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: _appBar(),
-        bottomNavigationBar: const BottomNavigationWidget(),
+        // ignore: prefer_const_constructors
+        bottomNavigationBar: BottomNavigationWidget(),
         body: BlocListener<AddTaskCubit, AddTaskState>(
           listener: (ctx, state) {
             if (state is TaskAdded) {
@@ -27,7 +28,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
           },
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-            child: const AddTaskForm(),
+            // ignore: prefer_const_constructors
+            child: AddTaskForm(),
           ),
         ),
         resizeToAvoidBottomInset: false);

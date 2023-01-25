@@ -21,9 +21,21 @@ class _PlanDayState extends State<PlanDayScreen> {
   Widget build(BuildContext context) {
     BlocProvider.of<TaskCubit>(context).fetchTasks();
 
+    int countNotFinishedTasks(List<Task> tasks) {
+      int count = 0;
+      for (var task in tasks) {
+        if (!task.isFinished) {
+          count++;
+        }
+      }
+      print(count);
+      return count;
+    }
+
     return Scaffold(
       appBar: _appBar(),
-      bottomNavigationBar: const BottomNavigationWidget(),
+      // ignore: prefer_const_constructors
+      bottomNavigationBar: BottomNavigationWidget(),
       body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -35,21 +47,20 @@ class _PlanDayState extends State<PlanDayScreen> {
                     return const Center(child: CircularProgressIndicator());
                   }
                   List<Task> sortedTasks = state.tasks;
-                  sortedTasks.sort((Task task1, Task task2) {
-                    if (task2.isImportant && task2.isPrior) {
-                      return 2;
-                    } else if (task2.isImportant && !task2.isPrior) {
-                      return 1;
-                    } else if (!task2.isImportant && task2.isPrior) {
-                      return 0;
-                    }
-                    return -1;
-                  });
+                  // sortedTasks.sort((Task task1, Task task2) {
+                  //   if (task2.isImportant && task2.isPrior) {
+                  //     return 2;
+                  //   } else if (task2.isImportant && !task2.isPrior) {
+                  //     return 1;
+                  //   } else if (!task2.isImportant && task2.isPrior) {
+                  //     return 0;
+                  //   }
+                  //   return -1;
+                  // });
 
-                  if (sortedTasks.isEmpty) {
+                  if (countNotFinishedTasks(sortedTasks) == 0) {
                     return Center(
-                        child: Text("Brak wybranych zadań na dziś",
-                            style: infoHeadingStyle));
+                        child: Text("Brak zadań", style: infoHeadingStyle));
                   }
 
                   return ListView(

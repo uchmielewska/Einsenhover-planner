@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 
 import '../../business_logic/cubit/task/task_cubit.dart';
+import '../../data/models/task.dart';
 import '../../services/theme_services.dart';
 import '../widgets/bottom_nagivation.dart';
 import '../widgets/task_tile.dart';
@@ -21,9 +22,19 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     BlocProvider.of<TaskCubit>(context).fetchTasks();
 
+    int countChosenTasks(List<Task> tasks) {
+      int count = 0;
+      for (var task in tasks) {
+        if (task.isChosen && !task.isFinished) {
+          count++;
+        }
+      }
+      return count;
+    }
+
     return Scaffold(
       appBar: _appBar(),
-      bottomNavigationBar: const BottomNavigationWidget(),
+      bottomNavigationBar: BottomNavigationWidget(),
       body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -35,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     return const Center(child: CircularProgressIndicator());
                   }
 
-                  if (state.tasks.isEmpty) {
+                  if (countChosenTasks(state.tasks) == 0) {
                     return Center(
                         child: Text("Brak wybranych zadań na dziś",
                             style: infoHeadingStyle));
