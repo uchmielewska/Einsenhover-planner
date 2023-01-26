@@ -86,7 +86,6 @@ class AddTaskFormState extends State<AddTaskForm> {
     return ElevatedButton(
       onPressed: () => {
         if (_titleController.text.isNotEmpty &&
-            _descriptionController.text.isNotEmpty &&
             _formKey.currentState?.validate() == true)
           {
             _formKey.currentState?.save(),
@@ -96,8 +95,7 @@ class AddTaskFormState extends State<AddTaskForm> {
                 _selectedPrority == "pilne",
                 _selectedImportance == "ważne")
           }
-        else if (_titleController.text.isEmpty ||
-            _descriptionController.text.isEmpty)
+        else if (_titleController.text.isEmpty)
           {
             Get.snackbar("Required", "All fields are required!",
                 snackPosition: SnackPosition.BOTTOM,

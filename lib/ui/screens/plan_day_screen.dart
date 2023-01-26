@@ -45,19 +45,8 @@ class _PlanDayState extends State<PlanDayScreen> {
                   if (state is! TaskLoaded) {
                     return const Center(child: CircularProgressIndicator());
                   }
-                  List<Task> sortedTasks = state.tasks;
-                  // sortedTasks.sort((Task task1, Task task2) {
-                  //   if (task2.isImportant && task2.isPrior) {
-                  //     return 2;
-                  //   } else if (task2.isImportant && !task2.isPrior) {
-                  //     return 1;
-                  //   } else if (!task2.isImportant && task2.isPrior) {
-                  //     return 0;
-                  //   }
-                  //   return -1;
-                  // });
 
-                  if (countNotFinishedTasks(sortedTasks) == 0) {
+                  if (countNotFinishedTasks(state.tasks) == 0) {
                     return Center(
                         child: Text("Brak zadań", style: infoHeadingStyle));
                   }
@@ -65,7 +54,7 @@ class _PlanDayState extends State<PlanDayScreen> {
                   return ListView(
                     children: ListTile.divideTiles(
                         context: context,
-                        tiles: sortedTasks.map((task) {
+                        tiles: state.tasks.map((task) {
                           return !task.isFinished
                               ? TaskTilePlanning(
                                   id: task.id,

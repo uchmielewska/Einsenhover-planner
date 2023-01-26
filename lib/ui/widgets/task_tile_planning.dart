@@ -35,9 +35,9 @@ class TaskTilePlanning extends StatelessWidget {
             color: isImportant
                 ? isPrior
                     ? Colors.red[400]
-                    : Colors.orange[600]
+                    : Colors.yellow[600]
                 : isPrior
-                    ? Colors.yellow[600]
+                    ? Colors.orange[600]
                     : Colors.green[400],
             borderRadius: BorderRadius.circular(20)),
         child: Row(

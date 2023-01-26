@@ -20,17 +20,19 @@ class TaskCubit extends Cubit<TaskState> {
       final tasks = currentState.tasks;
       tasks.add(task);
 
-      List<Task> sortedTasks = tasks;
-      sortedTasks.sort((Task task1, Task task2) {
-        if (task2.isImportant && task2.isPrior) {
-          return 2;
-        } else if (task2.isImportant && !task2.isPrior) {
-          return 1;
-        } else if (!task2.isImportant && task2.isPrior) {
-          return 0;
-        }
-        return -1;
-      });
+      List<Task> importantPrior =
+          tasks.where((t) => t.isPrior && t.isImportant).toList();
+      List<Task> importantNotPrior =
+          tasks.where((t) => !t.isPrior && t.isImportant).toList();
+      List<Task> notImportantPrior =
+          tasks.where((t) => t.isPrior && !t.isImportant).toList();
+      List<Task> notImportantNotPrior =
+          tasks.where((t) => !t.isPrior && !t.isImportant).toList();
+
+      List<Task> sortedTasks = importantPrior +
+          notImportantPrior +
+          importantNotPrior +
+          notImportantNotPrior;
 
       emit(TaskLoaded(sortedTasks));
     }
@@ -46,7 +48,7 @@ class TaskCubit extends Cubit<TaskState> {
         emit(TaskLoading());
         taskRepository.toggleIsTaskChosen(id, chosen).then((task) => emit(
             TaskLoaded(tasks.map((t) => t.id == task.id ? task : t).toList())));
-        // categoryRepository.emit(CategoryLoaded(categories));
+        taskRepository.emit(TaskLoaded(tasks));
       }
     }
   }
@@ -61,7 +63,7 @@ class TaskCubit extends Cubit<TaskState> {
         emit(TaskLoading());
         taskRepository.toggleIsTaskFinished(id, finished).then((task) => emit(
             TaskLoaded(tasks.map((t) => t.id == task.id ? task : t).toList())));
-        // categoryRepository.emit(CategoryLoaded(categories));
+        taskRepository.emit(TaskLoaded(tasks));
       }
     }
   }

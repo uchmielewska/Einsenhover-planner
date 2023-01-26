@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../business_logic/cubit/task/task_cubit.dart';
+import '../theme.dart';
 
 class MyTaskTile extends StatelessWidget {
   final String id;
@@ -25,10 +26,12 @@ class MyTaskTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<String> _taskStatus = ["w trakcie", "zakończone"];
+
     return TextButton(
       onPressed: () {
-        BlocProvider.of<TaskCubit>(context)
-            .toggleIsTaskFinished(id, !isFinished);
+        // BlocProvider.of<TaskCubit>(context)
+        //     .toggleIsTaskFinished(id, !isFinished);
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
@@ -36,9 +39,9 @@ class MyTaskTile extends StatelessWidget {
             color: isImportant
                 ? isPrior
                     ? Colors.red[400]
-                    : Colors.orange[600]
+                    : Colors.yellow[600]
                 : isPrior
-                    ? Colors.yellow[600]
+                    ? Colors.orange[600]
                     : Colors.green[400],
             borderRadius: BorderRadius.circular(20)),
         child: Row(
@@ -51,6 +54,23 @@ class MyTaskTile extends StatelessWidget {
                     style: const TextStyle(color: Colors.white, fontSize: 20)),
                 Text(description, style: const TextStyle(color: Colors.white))
               ],
+            ),
+            DropdownButton(
+              icon: const Icon(Icons.keyboard_arrow_down, color: Colors.white),
+              iconSize: 24,
+              elevation: 4,
+              style: inputTitleStyle,
+              underline: Container(height: 0),
+              onChanged: (String? newValue) {
+                if (newValue == 'zakończone') {
+                  BlocProvider.of<TaskCubit>(context)
+                      .toggleIsTaskFinished(id, !isFinished);
+                }
+              },
+              items: _taskStatus.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                    value: value, child: Text(value));
+              }).toList(),
             )
           ],
         ),

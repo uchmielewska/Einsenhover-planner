@@ -24,17 +24,19 @@ class TaskRepository {
             isChosen: value['isChosen']);
       }));
 
-      List<Task> sortedTasks = tasks;
-      sortedTasks.sort((Task task1, Task task2) {
-        if (task2.isImportant && task2.isPrior) {
-          return 2;
-        } else if (task2.isImportant && !task2.isPrior) {
-          return 1;
-        } else if (!task2.isImportant && task2.isPrior) {
-          return 0;
-        }
-        return -1;
-      });
+      List<Task> importantPrior =
+          tasks.where((t) => t.isPrior && t.isImportant).toList();
+      List<Task> importantNotPrior =
+          tasks.where((t) => !t.isPrior && t.isImportant).toList();
+      List<Task> notImportantPrior =
+          tasks.where((t) => t.isPrior && !t.isImportant).toList();
+      List<Task> notImportantNotPrior =
+          tasks.where((t) => !t.isPrior && !t.isImportant).toList();
+
+      List<Task> sortedTasks = importantPrior +
+          notImportantPrior +
+          importantNotPrior +
+          notImportantNotPrior;
 
       return sortedTasks;
     } catch (e) {
