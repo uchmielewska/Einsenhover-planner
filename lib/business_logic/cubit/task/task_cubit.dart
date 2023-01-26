@@ -19,7 +19,20 @@ class TaskCubit extends Cubit<TaskState> {
     if (currentState is TaskLoaded) {
       final tasks = currentState.tasks;
       tasks.add(task);
-      emit(TaskLoaded(tasks));
+
+      List<Task> sortedTasks = tasks;
+      sortedTasks.sort((Task task1, Task task2) {
+        if (task2.isImportant && task2.isPrior) {
+          return 2;
+        } else if (task2.isImportant && !task2.isPrior) {
+          return 1;
+        } else if (!task2.isImportant && task2.isPrior) {
+          return 0;
+        }
+        return -1;
+      });
+
+      emit(TaskLoaded(sortedTasks));
     }
   }
 

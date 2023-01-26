@@ -28,7 +28,6 @@ class _PlanDayState extends State<PlanDayScreen> {
           count++;
         }
       }
-      print(count);
       return count;
     }
 
@@ -86,15 +85,6 @@ class _PlanDayState extends State<PlanDayScreen> {
           ]),
     );
   }
-
-  // _sortTasks(Task task1, Task task2) {
-  //   var comparisonResult = task1.surname.compareTo(task2.surname);
-  //   if (comparisonResult != 0) {
-  //     return comparisonResult;
-  //   }
-  //   // Surnames are the same, so subsort by given name.
-  //   return name1.givenName.compareTo(name2.givenName);
-  // }
 
   _planDayBar() {
     return Container(

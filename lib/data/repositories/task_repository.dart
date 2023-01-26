@@ -24,7 +24,19 @@ class TaskRepository {
             isChosen: value['isChosen']);
       }));
 
-      return tasks;
+      List<Task> sortedTasks = tasks;
+      sortedTasks.sort((Task task1, Task task2) {
+        if (task2.isImportant && task2.isPrior) {
+          return 2;
+        } else if (task2.isImportant && !task2.isPrior) {
+          return 1;
+        } else if (!task2.isImportant && task2.isPrior) {
+          return 0;
+        }
+        return -1;
+      });
+
+      return sortedTasks;
     } catch (e) {
       return [];
     }
